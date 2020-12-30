@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     
-    <title>小武strong</title>
+    <title>关于ssm使用pagehelper失效问题 | 小武strong</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -51,15 +51,14 @@
 </div>
 
   <div id='main-part'>
-      
-    <div class="main">
+      <div class="main">
 <div class="blog-post">
     <!-- Title -->
-    
-      <h1 class="blog-post-title">
-        <a href="/2020/12/30/%E5%85%B3%E4%BA%8Essm%E4%BD%BF%E7%94%A8pagehelper%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/">关于Ssm使用pagehelper失效问题</a>
-      </h1>
-    
+    <h1 class="blog-post-title">
+        <a href="/2020/12/30/关于ssm使用pagehelper失效问题/">
+            关于Ssm使用pagehelper失效问题
+        </a>
+    </h1>
     <!-- Date and Author -->
     <p class="blog-post-meta">
         2020-12-30
@@ -75,23 +74,43 @@
 <h2 id="MybatisConfig-xml"><a href="#MybatisConfig-xml" class="headerlink" title="MybatisConfig.xml"></a>MybatisConfig.xml</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugin interceptor=<span class="string">&quot;com.github.pagehelper.PageInterceptor&quot;</span>&gt;</span><br><span class="line">           &lt;!--分页参数合理化  --&gt;</span><br><span class="line">         &lt;property name=<span class="string">&quot;reasonable&quot;</span> value=<span class="string">&quot;true&quot;</span>/&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="控制器Controller"><a href="#控制器Controller" class="headerlink" title="控制器Controller"></a>控制器Controller</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(<span class="string">&quot;index&quot;</span>)</span><br><span class="line">public String selectall(Model model, @RequestParam(value = <span class="string">&quot;pageNum&quot;</span>,defaultValue = <span class="string">&quot;1&quot;</span>) Integer pageNum)&#123;</span><br><span class="line">    PageHelper.startPage(pageNum,5);</span><br><span class="line">    List&lt;Department&gt; list = departmentService.selectAll();</span><br><span class="line">    PageInfo&lt;Department&gt; pageInfo = new PageInfo&lt;&gt;(list);</span><br><span class="line">    model.addAttribute(<span class="string">&quot;pageInfo&quot;</span>,pageInfo);</span><br><span class="line">    <span class="built_in">return</span> <span class="string">&quot;index&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="前端分页代码"><a href="#前端分页代码" class="headerlink" title="前端分页代码"></a>前端分页代码</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#  Post author: John Doe @阿帆的博客</span><br><span class="line">#  Post link: http://example.com/2020/12/24/关于Ssm使用pagehelper失效问题/</span><br><span class="line"># Copyright Notice: All articles in this blog are licensed under (CC)BY-NC-SA unless stating additionally.</span><br><span class="line"></span><br><span class="line"> <span class="tag">&lt;<span class="name">td</span> <span class="attr">colspan</span>=<span class="string">&quot;7&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">                当前第[[$&#123;pageInfo.pageNum&#125;]]页，共[[$&#123;pageInfo.pages&#125;]]页，共[[$&#123;pageInfo.total&#125;]]条记录 <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 分页导航条 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">th:href</span>=<span class="string">&quot;@&#123;/index&#125;&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>首页<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">th:href</span>=<span class="string">&quot;@&#123;/index/(pageNum=$&#123;pageInfo.hasPreviousPage&#125;?$&#123;pageInfo.prePage&#125;:1)&#125;&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>上一页<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 遍历导航页 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">th:each</span>=<span class="string">&quot;page,pageStat:$&#123;pageInfo.navigatepageNums&#125;&quot;</span></span></span><br><span class="line"><span class="tag">               <span class="attr">th:href</span>=<span class="string">&quot;@&#123;/index/(pageNum=$&#123;page&#125;)&#125;&quot;</span>&gt;</span></span><br><span class="line">                                    <span class="tag">&lt;<span class="name">span</span> <span class="attr">th:if</span>=<span class="string">&quot;$&#123;page&#125;==$&#123;pageInfo.pageNum&#125;&quot;</span>&gt;</span></span><br><span class="line">                                        <span class="tag">&lt;<span class="name">span</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;page&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                                    <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">span</span> <span class="attr">th:if</span>=<span class="string">&quot;$&#123;page&#125;!=$&#123;pageInfo.pageNum&#125;&quot;</span>&gt;</span></span><br><span class="line">                                        <span class="tag">&lt;<span class="name">span</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;page&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                                    <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 导航页 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">th:href</span>=<span class="string">&quot;@&#123;/index/(pageNum=$&#123;pageInfo.hasNextPage&#125;?$&#123;pageInfo.nextPage&#125;:$&#123;pageInfo.pages&#125;)&#125;&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>下一页<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">th:href</span>=<span class="string">&quot;@&#123;/index/(pageNum=$&#123;pageInfo.pages&#125;)&#125;&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>尾页<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br></pre></td></tr></table></figure>
-    <!-- Only display the Read More link if we are displaying an excerpt -->
+
+    <!-- Social share choices -->
     
+  <div id="social-share">
+    <a data-url="http://example.com/2020/12/30/%E5%85%B3%E4%BA%8Essm%E4%BD%BF%E7%94%A8pagehelper%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/" target="_blank" rel="noopener" href="https://plus.google.com/share?url=" class="googleplus"><img src="/image/googleplusicon.png" alt=""/></a>
+    <a data-url="http://example.com/2020/12/30/%E5%85%B3%E4%BA%8Essm%E4%BD%BF%E7%94%A8pagehelper%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?url=" class="twitter"><img src="/image/twittericon.png" alt=""/></a>
+    <a data-url="http://example.com/2020/12/30/%E5%85%B3%E4%BA%8Essm%E4%BD%BF%E7%94%A8pagehelper%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/" target="_blank" rel="noopener" href="http://pinterest.com/pin/create/button/?url=" class="pinterest"><img src="/image/pinteresticon.png" alt=""/></a>
+    <a data-url="http://example.com/2020/12/30/%E5%85%B3%E4%BA%8Essm%E4%BD%BF%E7%94%A8pagehelper%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=" class="facebook"><img src="/image/facebookicon.png" alt=""/></a>
+  </div>
+
+
+
+
+
+<!--
+
+
+https://www.facebook.com/sharer/sharer.php?u=http://example.com/2020/12/30/%E5%85%B3%E4%BA%8Essm%E4%BD%BF%E7%94%A8pagehelper%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/
+http://example.com/2020/12/30/%25E5%2585%25B3%25E4%25BA%258Essm%25E4%25BD%25BF%25E7%2594%25A8pagehelper%25E5%25A4%25B1%25E6%2595%2588%25E9%2597%25AE%25E9%25A2%2598/
+-->
+
+
 
     <hr />
 
+
+    <!-- Tags and Categories links -->
     
 
     
 
 
+    <!-- Comment using disqus -->
+    
 
 </div>
 </div>
-
-
-
-
 
 
   </div>
