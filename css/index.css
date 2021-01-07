@@ -3126,7 +3126,8 @@ blockquote footer cite:before {
 }
 #page-header.full_page {
   height: 100vh;
-background-image:url(qweqweqw.jpg.jpg);
+  background-color: #FFFF00;
+
 }
 #page-header.full_page #site-info {
   position: absolute;
@@ -3327,7 +3328,7 @@ background-image:url(qweqweqw.jpg.jpg);
 _::-webkit-full-page-media,
 _:future,
 :root #page-header.full_page {
-  background-attachment: scroll !important;
+  background-color: rgba(0,0,0,0.2);
 }
 #nav {
   position: absolute;
