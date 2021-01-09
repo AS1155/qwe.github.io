@@ -3126,7 +3126,7 @@ blockquote footer cite:before {
 }
 #page-header.full_page {
   height: 100vh;
-  background-color: #FFFF00;
+
 
 }
 #page-header.full_page #site-info {
@@ -3328,7 +3328,6 @@ blockquote footer cite:before {
 _::-webkit-full-page-media,
 _:future,
 :root #page-header.full_page {
-  background-color: rgba(0,0,0,0.2);
 }
 #nav {
   position: absolute;
